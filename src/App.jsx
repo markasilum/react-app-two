@@ -4,12 +4,25 @@ import Post from './components/Post'
 function App() {
   const[number, setNumber] = useState(1)
   const[post, setPost] = useState(null)
-  
+
+  const fetchPost = async (id) => {
+    try{
+      const response = await fetch('https://jsonplaceholder.typicode.com/posts/'+id)
+      const data = await response.json()
+      setPost(data)
+    }catch(error){
+      console.log(error)
+    }finally{
+      console.log('Done')
+    }
+  }
+
   useEffect(()=>{
-    fetch('https://jsonplaceholder.typicode.com/posts/'+number)
-    .then((response)=> response.json())
-    .then((data)=> setPost(data))
-    .catch((error)=>console.log(error))
+    // fetch('https://jsonplaceholder.typicode.com/posts/'+number)
+    // .then((response)=> response.json())
+    // .then((data)=> setPost(data))
+    // .catch((error)=>console.log(error))
+    fetchPost(number)
   },[number])
 
   return (
